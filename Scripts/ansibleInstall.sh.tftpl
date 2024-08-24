@@ -3,6 +3,6 @@ sudo apt-add-repository ppa:ansible/ansible -y
 sudo apt update
 sudo apt install ansible -y
 echo "${private_key}" > /home/ubuntu/.ssh/id_rsa
-git clone
+git clone https://github.com/Sebziel/TF-AWS-Ansible-Jenkins.git /home/ubuntu/TF-AWS-Ansible-Jenkins
 echo "[jenkins_master]" >> /home/ubuntu/TF-AWS-Ansible-Jenkins/Ansible/inventory
 echo "${public_ip}" >> /home/ubuntu/TF-AWS-Ansible-Jenkins/Ansible/inventory

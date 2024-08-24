@@ -2,10 +2,40 @@
 - hosts: all
   become: true
   tasks:
-    - name: Verify sudo access
-      command: whoami
-      register: whoami_output
-
-    - name: Display whoami output
-      debug:
-        var: whoami_output.stdout
+  - name: Install Java
+    apt:
+      name: openjdk-11-jdk
+      state: present
+  
+  - name: Add Jenkins repository key
+    apt_key:
+      url: https://pkg.jenkins.io/debian/jenkins.io.key
+      state: present
+  
+  - name: Add Jenkins repository
+    apt_repository:
+      repo: deb http://pkg.jenkins.io/debian-stable binary/
+      state: present
+  
+  - name: Update apt cache
+    apt:
+      update_cache: yes
+  
+  - name: Install Jenkins
+    apt:
+      name: jenkins
+      state: present
+  
+  - name: Start and enable Jenkins service
+    systemd:
+      name: jenkins
+      state: started
+      enabled: true
+  
+  - name: Ensure /var/jenkins_home exists
+    file:
+      path: /var/jenkins_home
+      state: directory
+      owner: jenkins
+      group: jenkins
+      mode: '0755'
