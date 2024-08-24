@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Verify sudo access
+      command: whoami
+      register: whoami_output
+
+    - name: Display whoami output
+      debug:
+        var: whoami_output.stdout
