@@ -3,3 +3,5 @@ sudo apt-add-repository ppa:ansible/ansible -y
 sudo apt update
 sudo apt install ansible -y
 echo "${private_key}" > /home/ubuntu/.ssh/id_rsa
+echo "[jenkins_master]" >> /home/ubuntu/ansible/inventory
+echo "${public_ip}" >> /home/ubuntu/ansible/inventory

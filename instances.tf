@@ -19,7 +19,7 @@ module "ec2_ansible_instance" {
   vpc_security_group_ids = [module.ssh_sg.security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
   associate_public_ip_address = true
-  user_data = base64encode(templatefile("Scripts/ansibleInstall.sh.tftpl", {private_key=module.key_pair.private_key_pem}))
+  user_data = base64encode(templatefile("Scripts/ansibleInstall.sh.tftpl", {private_key=module.key_pair.private_key_pem, public_ip=module.ec2_jenkins_instance.public_ip}))
   key_name = module.key_pair.key_pair_name
   tags = {
     Terraform   = "true"
