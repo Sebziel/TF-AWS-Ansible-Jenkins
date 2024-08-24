@@ -12,3 +12,12 @@ variable "public_subnets_count" {
     error_message = "At least 3 subnets are required"
   }
 }
+
+variable "private_subnets_count" {
+  default     = 3
+  type        = number
+  validation {
+    condition     = var.private_subnets_count >= 3
+    error_message = "At least 3 subnets are required"
+  }
+}
