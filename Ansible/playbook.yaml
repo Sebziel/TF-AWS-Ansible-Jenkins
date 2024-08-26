@@ -30,12 +30,6 @@
       name: jenkins
       state: present
   
-  - name: Start and enable Jenkins service
-    systemd:
-      name: jenkins
-      state: started
-      enabled: true
-  
   - name: Ensure /var/jenkins_home exists
     file:
       path: /var/jenkins_home
@@ -44,10 +38,24 @@
       group: jenkins
       mode: '0755'
       
+  - name: Create directory for Jenkins Groovy init scripts
+    file:
+      path: /var/lib/jenkins/init.groovy.d
+      state: directory
+      owner: jenkins
+      group: jenkins
+      mode: '0755'
+      
   - name: Copy script to remote machine
     copy:
       src: JenkinsScripts/CreateAdminUser.groovy
-      dest: /var/jenkins_home/init.groovy.d/CreateAdminUser.groovy
+      dest: /var/lib/jenkins/init.groovy.d/CreateAdminUser.groovy
       mode: '0755'
       owner: jenkins
       group: jenkins
+      
+  - name: Start and enable Jenkins service
+    systemd:
+      name: jenkins
+      state: started
+      enabled: true
