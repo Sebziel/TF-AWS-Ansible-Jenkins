@@ -24,6 +24,13 @@
   - name: Update apt cache
     apt:
       update_cache: yes
+
+  - name: Preconfigure Jenkins to not start automatically
+    debconf:
+      name: jenkins
+      question: jenkins/skip-start
+      value: "true"
+      vtype: boolean
   
   - name: Install Jenkins
     apt:
@@ -46,10 +53,26 @@
       group: jenkins
       mode: '0755'
       
+  - name: Copy 1 script to remote machine
+    copy:
+      src: JenkinsScripts/1-InitializeInstance.groovy
+      dest: /var/lib/jenkins/init.groovy.d/1-InitializeInstance.groovy
+      mode: '0755'
+      owner: jenkins
+      group: jenkins
+      
   - name: Copy script to remote machine
     copy:
-      src: JenkinsScripts/CreateAdminUser.groovy
-      dest: /var/lib/jenkins/init.groovy.d/CreateAdminUser.groovy
+      src: JenkinsScripts/2-CreateAdminUser.groovy
+      dest: /var/lib/jenkins/init.groovy.d/2-CreateAdminUser.groovy
+      mode: '0755'
+      owner: jenkins
+      group: jenkins
+  
+  - name: Copy 3 script to remote machine
+    copy:
+      src: JenkinsScripts/1-InitializeInstance.groovy
+      dest: /var/lib/jenkins/init.groovy.d/3-InstallPlugins.groovy
       mode: '0755'
       owner: jenkins
       group: jenkins
