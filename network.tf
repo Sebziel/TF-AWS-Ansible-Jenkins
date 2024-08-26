@@ -20,8 +20,18 @@ module "vpc" {
 module "ssh_sg" {
   source = "terraform-aws-modules/security-group/aws//modules/ssh"
 
-  name        = "web-server"
+  name        = "web-server-ssh"
   description = "Security group for servers with 22 ports open"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+}
+
+module "ssh_http" {
+  source = "terraform-aws-modules/security-group/aws//modules/http-80"
+
+  name        = "web-server-http"
+  description = "Security group for servers with 80 ports open"
   vpc_id      = module.vpc.vpc_id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
