@@ -24,34 +24,34 @@
   - name: Update apt cache
     apt:
       update_cache: yes
-
-  - name: Preconfigure Jenkins to not start automatically
-    debconf:
-      name: jenkins
-      question: jenkins/skip-start
-      value: "true"
-      vtype: boolean
   
   - name: Install Jenkins
     apt:
       name: jenkins
       state: present
-  
-  - name: Ensure /var/jenkins_home exists
-    file:
-      path: /var/jenkins_home
-      state: directory
-      owner: jenkins
-      group: jenkins
-      mode: '0755'
       
-  - name: Create directory for Jenkins Groovy init scripts
+  - name: Ensure directories exists
     file:
-      path: /var/lib/jenkins/init.groovy.d
+      path: "{{ item.path }}"
       state: directory
-      owner: jenkins
-      group: jenkins
+      owner: "{{ item.owner }}"
+      group: "{{ item.group }}"
       mode: '0755'
+    loop:
+      - { path: '/var/lib/jenkins', owner: 'jenkins', group: 'jenkins'}
+      - { path: '/var/lib/jenkins/init.groovy.d', owner: 'jenkins', group: 'jenkins'}
+      - { path: '/etc/systemd/system/jenkins.service.d', owner: 'root', group: 'root'}
+      
+  - name: Create jenkins service override file
+    copy:
+      dest: /etc/systemd/system/jenkins.service.d/override.conf
+      content: |
+        [Service]
+        Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
+      mode: '0644'
+      
+  - name: Reload systemd daemon
+    command: systemctl daemon-reload
       
   - name: Copy Groovy scripts to remote machine
     copy:
@@ -63,3 +63,9 @@
     loop:
       - { src: 'JenkinsScripts/2-CreateAdminUser.groovy', dest: '/var/lib/jenkins/init.groovy.d/2-CreateAdminUser.groovy' }
       - { src: 'JenkinsScripts/3-InstallPlugins.groovy', dest: '/var/lib/jenkins/init.groovy.d/3-InstallPlugins.groovy' }
+  
+      
+  - name: Make sure a service unit is running
+    ansible.builtin.systemd_service:
+      state: restarted
+      name: jenkins
