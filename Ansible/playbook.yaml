@@ -61,9 +61,9 @@
       owner: jenkins
       group: jenkins
     loop:
+      - { src: 'JenkinsScripts/1-InstallPlugins.groovy', dest: '/var/lib/jenkins/init.groovy.d/1-InstallPlugins.groovy' }
       - { src: 'JenkinsScripts/2-CreateAdminUser.groovy', dest: '/var/lib/jenkins/init.groovy.d/2-CreateAdminUser.groovy' }
-      - { src: 'JenkinsScripts/3-InstallPlugins.groovy', dest: '/var/lib/jenkins/init.groovy.d/3-InstallPlugins.groovy' }
-  
+
       
   - name: Make sure a service unit is running
     ansible.builtin.systemd_service:
