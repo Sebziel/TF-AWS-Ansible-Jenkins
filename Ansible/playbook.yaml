@@ -53,9 +53,3 @@
       mode: '0755'
       owner: jenkins
       group: jenkins
-      
-  - name: Start and enable Jenkins service
-    systemd:
-      name: jenkins
-      state: started
-      enabled: true
