@@ -34,7 +34,7 @@ module "ec2_jenkins_instance" {
   ami = data.aws_ami.this.id
   instance_type          = "t2.micro"
   monitoring             = true
-  vpc_security_group_ids = [module.ssh_sg.security_group_id, module.ssh_http.security_group_id]
+  vpc_security_group_ids = [module.ssh_sg.security_group_id, module.http_sg.security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
   associate_public_ip_address = true
   key_name = module.key_pair.key_pair_name

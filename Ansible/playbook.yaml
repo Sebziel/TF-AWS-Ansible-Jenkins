@@ -8,7 +8,7 @@
   
   - name: Install Java
     apt:
-      name: openjdk-11-jdk
+      name: openjdk-17-jdk
       state: present
 
   - name: Download Jenkins repository key
@@ -43,3 +43,11 @@
       owner: jenkins
       group: jenkins
       mode: '0755'
+      
+  - name: Copy script to remote machine
+    copy:
+      src: JenkinsScripts/CreateAdminUser.groovy
+      dest: /var/jenkins_home/init.groovy.d/CreateAdminUser.groovy
+      mode: '0755'
+      owner: jenkins
+      group: jenkins
