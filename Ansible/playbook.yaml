@@ -53,26 +53,13 @@
       group: jenkins
       mode: '0755'
       
-  - name: Copy 1 script to remote machine
+  - name: Copy Groovy scripts to remote machine
     copy:
-      src: JenkinsScripts/1-InitializeInstance.groovy
-      dest: /var/lib/jenkins/init.groovy.d/1-InitializeInstance.groovy
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
       mode: '0755'
       owner: jenkins
       group: jenkins
-      
-  - name: Copy script to remote machine
-    copy:
-      src: JenkinsScripts/2-CreateAdminUser.groovy
-      dest: /var/lib/jenkins/init.groovy.d/2-CreateAdminUser.groovy
-      mode: '0755'
-      owner: jenkins
-      group: jenkins
-  
-  - name: Copy 3 script to remote machine
-    copy:
-      src: JenkinsScripts/1-InitializeInstance.groovy
-      dest: /var/lib/jenkins/init.groovy.d/3-InstallPlugins.groovy
-      mode: '0755'
-      owner: jenkins
-      group: jenkins
+    loop:
+      - { src: 'JenkinsScripts/2-CreateAdminUser.groovy', dest: '/var/lib/jenkins/init.groovy.d/2-CreateAdminUser.groovy' }
+      - { src: 'JenkinsScripts/3-InstallPlugins.groovy', dest: '/var/lib/jenkins/init.groovy.d/3-InstallPlugins.groovy' }
