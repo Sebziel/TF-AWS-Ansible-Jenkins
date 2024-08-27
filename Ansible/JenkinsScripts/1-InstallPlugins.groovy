@@ -34,5 +34,27 @@ plugins.each { pluginName ->
     }
 }
 
-// Save the current state to disk
+def isPluginInstalled(pm) {
+    return pm.getPlugin("matrix-auth")
+}
+
+int maxRetries = 10
+int retries = 0
+
+while (retries < maxRetries) {
+    if (isPluginInstalled(pm)) {
+        println "Plugin is installed. Proceeding to the next part of the script."
+        break
+    } else {
+        println "Plugin is not installed. Sleeping for 6 second..."
+        sleep(5000)
+        retries++
+    }
+}
+
+if (retries == maxRetries) {
+    println "Plugin is still not installed after 10 retries. Exiting script."
+}
+
+
 instance.save()

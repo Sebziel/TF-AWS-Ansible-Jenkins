@@ -36,5 +36,4 @@ while (retries < maxRetries) {
 
 if (retries == maxRetries) {
     println "Plugin is still not installed after 10 retries. Exiting script."
-    // Add any cleanup or exit logic here if needed
 }
