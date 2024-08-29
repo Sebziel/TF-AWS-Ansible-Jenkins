@@ -7,12 +7,12 @@ def plugins = [
     'credentials-binding',
     'pipeline-github-lib',
     'pipeline-stage-view',
+    'pipeline-model-definition',
     'credentials',
     'ssh-slaves',
     'matrix-auth',
     'job-dsl',
     'email-ext',
-    'ldap',
     'github',
     'github-branch-source'
 ]
