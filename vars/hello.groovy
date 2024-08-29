@@ -5,7 +5,7 @@ def call(body) {
             stage('Initialize parameters') {
                 steps {
                     sh "echo 'test'"
-                        
-        }
-    }
+                    }
+                }
+            }
 }
