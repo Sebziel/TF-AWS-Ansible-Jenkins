@@ -1,5 +1,11 @@
-#!/usr/bin/env groovy
-
-def call(String name = 'human') {
-  echo "Hello, ${name}."
+def call(body) {
+    pipeline {
+        agent any
+        stages {
+            stage('Initialize parameters') {
+                steps {
+                    sh "echo 'test"
+                        
+        }
+    }
 }
