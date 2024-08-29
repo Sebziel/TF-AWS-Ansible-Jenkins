@@ -4,7 +4,7 @@ def call(body) {
         stages {
             stage('Initialize parameters') {
                 steps {
-                    sh "echo 'test'"
+                    echo "Hello From shared Libraryy."
                 }
             }
         }
