@@ -3,8 +3,8 @@ import org.jenkinsci.plugins.workflow.libs.*
 import jenkins.plugins.git.GitSCMSource
 
 // Define library details
-def libraryName = 'my-shared-library'
-def libraryRepoUrl = 'https://github.com/your-github-username/your-library-repo.git'
+def libraryName = 'TF-Ansible-Jenkins'
+def libraryRepoUrl = 'https://github.com/Sebziel/TF-AWS-Ansible-Jenkins.git'
 def libraryDefaultVersion = 'main'
 
 // Get Jenkins instance
