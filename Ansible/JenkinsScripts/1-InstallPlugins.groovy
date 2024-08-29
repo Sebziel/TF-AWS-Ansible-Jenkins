@@ -12,7 +12,9 @@ def plugins = [
     'matrix-auth',
     'job-dsl',
     'email-ext',
-    'ldap'
+    'ldap',
+    'github',
+    'github-branch-source'
 ]
 
 // Get the Jenkins instance
