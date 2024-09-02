@@ -69,7 +69,8 @@
       - { src: 'JenkinsScripts/1-InstallPlugins.groovy', dest: '/var/lib/jenkins/init.groovy.d/1-InstallPlugins.groovy' }
       - { src: 'JenkinsScripts/2-CreateAdminUser.groovy', dest: '/var/lib/jenkins/init.groovy.d/2-CreateAdminUser.groovy' }
       - { src: 'JenkinsScripts/3-ConfigureSharedPipeline.groovy', dest: '/var/lib/jenkins/init.groovy.d/3-ConfigureSharedPipeline.groovy' }
-      - { src: 'JenkinsScripts/4-CreateJob.groovy', dest: '/var/lib/jenkins/init.groovy.d/4-CreateJob.groovy' }
+      - { src: 'JenkinsScripts/4-CreateDemoJob.groovy', dest: '/var/lib/jenkins/init.groovy.d/4-CreateDemoJob.groovy' }
+      - { src: 'JenkinsScripts/5-CreatePetclinicJob.groovy', dest: '/var/lib/jenkins/init.groovy.d/5-CreatePetclinicJob.groovy' }
 
       
   - name: Make sure a service unit is running

@@ -14,7 +14,7 @@ module "ec2_ansible_instance" {
 
   name = "ansible-control"
   ami = data.aws_ami.this.id
-  instance_type          = "t2.micro"
+  instance_type          = "t2.small"
   monitoring             = true
   vpc_security_group_ids = [module.ssh_sg.security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
@@ -32,7 +32,7 @@ module "ec2_jenkins_instance" {
 
   name = "jenkins-master"
   ami = data.aws_ami.this.id
-  instance_type          = "t2.micro"
+  instance_type          = "t2.small"
   monitoring             = true
   vpc_security_group_ids = [module.ssh_sg.security_group_id, module.http_sg.security_group_id]
   subnet_id              = module.vpc.public_subnets[0]
