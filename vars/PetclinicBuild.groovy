@@ -8,10 +8,6 @@ def call(body) {
                         def branchNames = GetBranches()
                         properties([
                             parameters ([
-                                string(
-                                    defaultValue: 'StringTest',
-                                    name: 'TestStringParameter'
-                                ),
                                 choice(
                                     choices: branchNames,
                                     name: 'BranchChoice'
@@ -19,11 +15,6 @@ def call(body) {
                             ])
                         ])
                     }
-                }
-            }
-            stage('ParamTest') {
-                steps {
-                    echo params.TestStringParameter
                 }
             }
             stage('checkout') {
@@ -34,6 +25,11 @@ def call(body) {
             stage('build') {
                 steps {
                     sh 'mvn clean package'
+                }
+            }
+            stage('archive Artifacts') {
+                steps {
+                    archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
                 }
             }
         }
