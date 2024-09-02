@@ -24,6 +24,11 @@
   - name: Update apt cache
     apt:
       update_cache: yes
+      
+  - name: Install Maven
+    apt:
+      name: maven
+      state: present
   
   - name: Install Jenkins
     apt:
