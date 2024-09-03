@@ -77,6 +77,7 @@
       - { src: 'JenkinsScripts/3-ConfigureSharedPipeline.groovy', dest: '/var/lib/jenkins/init.groovy.d/3-ConfigureSharedPipeline.groovy' }
       - { src: 'JenkinsScripts/4-CreateDemoJob.groovy', dest: '/var/lib/jenkins/init.groovy.d/4-CreateDemoJob.groovy' }
       - { src: 'JenkinsScripts/5-CreatePetclinicJob.groovy', dest: '/var/lib/jenkins/init.groovy.d/5-CreatePetclinicJob.groovy' }
+      - { src: 'JenkinsScripts/6-CreateEmailSpringJob.groovy', dest: '/var/lib/jenkins/init.groovy.d/6-CreateEmailSpringJob.groovy' }
 
       
   - name: Restart Jenkins
