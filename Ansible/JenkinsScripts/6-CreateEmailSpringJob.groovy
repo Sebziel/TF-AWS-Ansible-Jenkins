@@ -5,7 +5,7 @@ import com.coravy.hudson.plugins.github.GithubProjectProperty
 
 
 def jobName = 'EmailSpringBuild'
-def githubRepoUrl = 'https://github.com/Sebziel/EmilSpring.git'
+def githubRepoUrl = 'https://github.com/Sebziel/EmailSpring.git'
 def githubProjectProperty = new GithubProjectProperty(githubRepoUrl)
 
 def jenkins = Jenkins.instance

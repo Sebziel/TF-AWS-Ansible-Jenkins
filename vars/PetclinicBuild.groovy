@@ -19,7 +19,7 @@ def call(body) {
             }
             stage('checkout') {
                 steps {
-                    git branch:params.BranchChoice, url: 'https://github.com/Sebziel/EmilSpring.git'
+                    git branch:params.BranchChoice, url: 'https://github.com/Sebziel/spring-petclinic.git'
                 }
             }
             stage('build') {
