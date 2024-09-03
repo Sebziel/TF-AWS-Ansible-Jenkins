@@ -38,8 +38,14 @@
     systemd:
       name: docker
       state: started
-      enabled: yes  
+      enabled: yes
       
+  - name: Add user 'jenkins' to 'docker' group
+    user:
+      name: jenkins
+      groups: docker
+      append: yes
+        
   - name: Ensure Jenkins directories exists
     file:
       path: "{{ item.path }}"
