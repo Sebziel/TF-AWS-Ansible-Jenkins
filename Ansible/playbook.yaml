@@ -2,28 +2,12 @@
 - hosts: all
   become: true
   tasks:
-  - name: Update apt cache
-    apt:
-      update_cache: yes
+  - import_tasks: aptManagement.yaml
   
   - name: Install Java
     apt:
       name: openjdk-17-jdk
       state: present
-
-  - name: Download Jenkins repository key
-    apt_key:
-      url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-      state: present
-    
-  - name: Add Jenkins repository to the sources list
-    apt_repository:
-      repo: deb http://pkg.jenkins.io/debian-stable binary/
-      state: present
-      
-  - name: Update apt cache
-    apt:
-      update_cache: yes
       
   - name: Install Maven
     apt:
@@ -35,7 +19,28 @@
       name: jenkins
       state: present
       
-  - name: Ensure directories exists
+  - name: Install Docker CE
+    apt:
+      name: docker-ce
+      state: present
+
+  - name: Install tools
+    apt:
+      name: "{{ item.name }}"
+      state: "{{ item.state }}"
+    loop:
+      - { name: 'openjdk-17-jdk', state: 'present'}
+      - { name: 'maven', state: 'present'}
+      - { name: 'jenkins', state: 'present'}
+      - { name: 'docker-ce', state: 'present'}
+
+  - name: Ensure Docker service is started and enabled
+    systemd:
+      name: docker
+      state: started
+      enabled: yes  
+      
+  - name: Ensure Jenkins directories exists
     file:
       path: "{{ item.path }}"
       state: directory
@@ -47,14 +52,6 @@
       - { path: '/var/lib/jenkins/init.groovy.d', owner: 'jenkins', group: 'jenkins'}
       - { path: '/etc/systemd/system/jenkins.service.d', owner: 'root', group: 'root'}
       
-  - name: Get the status of the service
-    command: systemctl status jenkins
-    register: service_status
-
-  - name: Print the status of the service
-    debug:
-      var: service_status.stdout  
-    
   - name: Create jenkins service override file
     copy:
       dest: /etc/systemd/system/jenkins.service.d/override.conf

@@ -14,7 +14,8 @@ def plugins = [
     'job-dsl',
     'email-ext',
     'github',
-    'github-branch-source'
+    'github-branch-source',
+    'docker-workflow'
 ]
 
 // Get the Jenkins instance
