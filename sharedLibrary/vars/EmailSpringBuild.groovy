@@ -1,6 +1,7 @@
-@Library('TF-Ansible-Jenkins') _
-
 def call(body) {
+    
+    def constants = load 'vars/constants.groovy'
+    
     pipeline {
         agent any
         stages {
