@@ -32,6 +32,14 @@ def call(body) {
                     archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
                 }
             }
+            stage('build container'){
+                steps{
+                    script{
+                        docker.build("%(constants.image_name):${env.BUILD_ID}")                        
+                    }
+                }
+                
+            }
         }
     }
 }
