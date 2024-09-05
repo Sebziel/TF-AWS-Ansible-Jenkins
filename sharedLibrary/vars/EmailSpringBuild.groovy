@@ -1,7 +1,5 @@
 def call(body) {
-    
-    def constants = load 'vars/constants.groovy'
-    
+
     pipeline {
         agent any
         stages {
@@ -38,7 +36,7 @@ def call(body) {
             stage('build container'){
                 steps{
                     script{
-                        docker.build("${constants.image_name}:${env.BUILD_ID}")                        
+                        docker.build("EmailSpring:${env.BUILD_ID}")                        
                     }
                 }
                 
