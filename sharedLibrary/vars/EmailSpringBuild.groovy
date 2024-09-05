@@ -36,7 +36,7 @@ def call(body) {
             stage('build container'){
                 steps{
                     script{
-                        docker.build("EmailSpring:${env.BUILD_ID}")                        
+                        docker.build("email_spring:${env.BUILD_ID}")                        
                     }
                 }
                 

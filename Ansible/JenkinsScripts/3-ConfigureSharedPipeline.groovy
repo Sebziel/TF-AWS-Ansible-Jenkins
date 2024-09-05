@@ -6,6 +6,7 @@ import jenkins.plugins.git.GitSCMSource
 def libraryName = 'TF-Ansible-Jenkins'
 def libraryRepoUrl = 'https://github.com/Sebziel/TF-AWS-Ansible-Jenkins.git'
 def libraryDefaultVersion = 'main'
+def libraryPath = 'sharedLibrary/'
 
 // Get Jenkins instance
 def jenkins = Jenkins.getInstance()
@@ -16,6 +17,7 @@ def globalLibraries = GlobalLibraries.get()
 // Create a new library configuration
 def scmSource = new GitSCMSource(libraryRepoUrl)
 def scmRetriever = new SCMSourceRetriever(scmSource)
+scmRetriever.setLibraryPath(libraryPath)
 def libraryConfiguration = new LibraryConfiguration(libraryName, scmRetriever)
 libraryConfiguration.setDefaultVersion(libraryDefaultVersion)
 
