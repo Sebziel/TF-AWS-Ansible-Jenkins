@@ -12,8 +12,6 @@ def jenkins = Jenkins.instance
 def job = jenkins.createProject(WorkflowJob, jobName)
 def pipelineScript = '''
 @Library('TF-Ansible-Jenkins') _
-
-// Call the hello.groovy pipeline
 EmailSpringBuild()
 '''.stripIndent()
 def flowDefinition = new CpsFlowDefinition(pipelineScript, true)
