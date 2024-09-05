@@ -35,7 +35,7 @@ def call(body) {
             stage('build container'){
                 steps{
                     script{
-                        docker.build("$(constants.image_name):${env.BUILD_ID}")                        
+                        docker.build("${constants.image_name}:${env.BUILD_ID}")                        
                     }
                 }
                 
