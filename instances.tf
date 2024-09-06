@@ -38,6 +38,7 @@ module "ec2_jenkins_instance" {
   subnet_id              = module.vpc.public_subnets[0]
   associate_public_ip_address = true
   key_name = module.key_pair.key_pair_name
+  iam_instance_profile = module.iam_assumable_role_inline_policy.iam_instance_profile_name
   user_data = <<-EOF
             #!/bin/bash
             sudo snap install aws-cli --classic

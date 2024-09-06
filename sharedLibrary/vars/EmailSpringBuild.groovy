@@ -33,10 +33,14 @@ def call(body) {
                     archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
                 }
             }
-            stage('build container'){
+            stage('build and push container'){
                 steps{
                     script{
-                        docker.build("email_spring:${env.BUILD_ID}")                        
+                        def accountId = sh(script: "aws sts get-caller-identity --query Account --output text", returnStdout: true).trim()
+                        def imageName = "${accountId}.dkr.ecr.us-east-1.amazonaws.com/email-spring:${env.BUILD_ID}"
+                        sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${accountId}.dkr.ecr.us-east-1.amazonaws.com"
+                        docker.build(imageName)
+                        docker.image(imageName).push()                       
                     }
                 }
                 
