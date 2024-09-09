@@ -5,14 +5,23 @@ on:
     branches:
       - actions
 
+env:
+ TF_LOG: INFO
+ AWS_ACCESS_KEY_ID: ${{ secrets.KEY_ID }}
+ AWS_SECRET_ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: check out code
-        uses: actions/checkout@v2
-      - name: list dir
-        run: |
-          ls
-          pwd
-          ./TerraformInstall.sh
+     - name: Checkout the repository to the runner
+       uses: actions/checkout@v2
+     - name: Setup Terraform with specified version on the runner
+       uses: hashicorp/setup-terraform@v2
+       with:
+         terraform_version: 1.3.0
+     - name: Init terraform
+       run: terraform init
+     - name: plan
+       run: terraform plan
+
